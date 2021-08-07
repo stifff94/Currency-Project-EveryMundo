@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Currency Management Portal</title>
+
+
+</head>
+
+<body>
+
+
+    <div ng-app="myApp" ng-controller="myctrl">
+        <div class="container" >
+            <h1>CURRENCY PROJECT</h1>
+            <hr>
+            <div class="row align-items-center">
+                <div class="col-6 align-items-right">
+                    <div class="row align-items-center">
+                        <label>Country Currency</label><br>
+                        <select name="mySelect" id="mySelect" ng-model="newcurrency.address">
+                            <option ng-repeat="item in data.format" value="{{item}}">{{item.name}}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label>Show</label><br>
+                        <select name="mySelect" id="mySelect" ng-model="newcurrency.show">
+                            <option value="code" selected>code
+                            <option value="symbol">symbol
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label>Show after/before the price</label><br>
+                        <select name="mySelect" id="mySelect" ng-model="newcurrency.place">
+                            <option value="after" selected>after
+                            <option value="before">before
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label>Show cents</label><br>
+                        <select name="mySelect" id="mySelect" ng-model="newcurrency.cents">
+                            <option value="yes" selected>yes
+                            <option value="no">no
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label>Format</label><br>
+                        <select name="mySelect" id="mySelect" ng-model="newcurrency.format">
+                            <option value="#,###.##" selected>#,###.##
+                            <option value="#.###,##">#.###,##
+
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <input type="hidden" ng-model="newcurrency.id" />
+                        <input type="button" value="Save" ng-click="saveRecord()" class="btn btn-success" />
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <table id="listexcel" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                        <button ng-click="sortBy('name')">Name</button>
+                        <span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
+                        </th>
+                        <th>Code</th>
+                        <th >Symbol</th>
+                        <th >Option choosen</th>
+                        <th >Place</th>
+                        <th >Show cents</th>
+                        <th >Format</th>
+                        <th >Example</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                    <tr  ng-repeat="currency in currency | orderBy:propertyName:reverse">
+                        <td>{{ currency.type.name }}</td>
+                        <td>{{ currency.type.code}}</td>
+                        <td>{{ currency.type.symbol}}</td>
+                        <td>{{ currency.show}}</td>
+                        <td>{{ currency.place}} the price</td>
+                        <td>{{ currency.cents }}</td>
+                        <td>{{ currency.format }}</td>
+                        <td>{{ currency.example }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="edit(currency.id)">Edit</button>
+                            <br>
+                            <button type="button" class="btn btn-danger btn-sm" ng-click="delete(currency.id)">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+                <button onclick="exportData()">
+                    <span class="glyphicon glyphicon-download"></span>
+                    Download list to Excel
+                </button>
+                <hr>
+                
+            </div>
+        </div>
+    </div>
+    <footer class="bg-light text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+         Esteban Carrera © 2021 Copyright:
+         
+        </div>
+        <!-- Copyright -->
+      </footer>
+    <script type="text/javascript" src="lib/convert.js"></script>
+    <script type="text/javascript" src="lib/angular.min.js">
+    </script>
+    <script type="text/javascript" src="lib/controlador.js">
+    </script>
+</body>
+
+</html>
